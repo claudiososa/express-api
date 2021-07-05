@@ -34,7 +34,15 @@ app.post('/api/genres/', (req, res) => {
     res.send(item);
 })
 
-const port = process.env.PORT || 3000;
+app.delete('/api/genres/:id', (req, res) => {
+
+    const index = genres.indexOf( g => g.id === req.body.id);
+    const genre = genres[index];
+    genres.slice(index, 1);
+
+    res.send(genre);
+
+})
 
 function validateGenres(course){
     const schema = {
@@ -42,5 +50,8 @@ function validateGenres(course){
     }
     return Joi.validate(course, schema);
 }
+
+
+const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log('Listengin on port 4000'));
